@@ -1,28 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+
+import { HashRouter as Router, Route, Switch} from 'react-router-dom';
+import TopBar from './components/TopBar';
+import Home from './containers/Home';
+import CampaignDetails from './containers/CampaignDetails';
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+});
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  container: {
+    display: 'flex',
+    padding: theme.spacing.unit * 2,
+  }
+});
+
 
 class App extends Component {
+
   render() {
+    const { classes } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <div className={classes.root}>
+            <TopBar />
+            <div className={classes.container}>
+              <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/campaign/:id" component={CampaignDetails} />
+              </Switch>
+            </div>
+          </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object
+};
+
+export default withStyles(styles)(App);
