@@ -38,7 +38,7 @@ SVG icons of each platform are added to project. Icons are downloaded from flati
 
 
 Client has two main pages.
-- Home page is the root page where the existing campaigns are listed. Home page also have fail condition layouts for to inform user when there are no campaigns or when there is failure loading the campaigns from backend.
+- Home page is the root page where the existing campaigns are listed. Home page also have fail condition layouts to inform user when there are no campaigns or when there is failure loading the campaigns from backend.
 - Campaign Detail page is for details of selected campaign. Each platform has its own card to display all details on this page. I preferred to use collapsible component to show/hide sub entities, like Target Audience, Insights of each platform. I thought user would prefer to compare side by side each platform's sub entities. So collapsible component is a good fit to achieve that.
 
 ---
@@ -59,9 +59,9 @@ Final jar file will be located under `/backend/target`.
 
 ## Running jar file
 
-Application can be started with following command
+Application can be started with following command in `/backend` folder
 ```
-java -jar backend\target\adcampaign-0.0.1-SNAPSHOT.jar
+java -jar target\adcampaign-0.0.1-SNAPSHOT.jar
 ```
 
 Open http://localhost:8080 in your browser to use the application.
@@ -99,7 +99,7 @@ npm run build
 
 After frontend build completed, for building backend code, execute following command under `/backend` folder
 ```
-mvn package -Pdev
+mvn package
 ```
 
 

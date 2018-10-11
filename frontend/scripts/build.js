@@ -60,7 +60,16 @@ checkBrowsers(paths.appPath, isInteractive)
   .then(previousFileSizes => {
     // Remove all content but keep the directory so that
     // if you're in it, you don't end up in Trash
-    fs.emptyDirSync(paths.appBuild);
+    // fs.emptyDirSync(paths.appBuild);
+    const imagesRealPath = paths.appBuild + '/images';
+    const imagesTempPath = '../backend/src/main/resources/images';
+    fs.rename(imagesRealPath, imagesTempPath, () => {
+      fs.emptyDirSync(paths.appBuild);
+      fs.rename(imagesTempPath, imagesRealPath, () => {
+        console.log('build folder is cleared');
+      });
+    });
+
     // Merge with the public folder
     copyPublicFolder();
     // Start the webpack build
