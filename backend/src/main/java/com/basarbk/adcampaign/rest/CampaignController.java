@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.basarbk.adcampaign.model.Campaign;
+import com.basarbk.adcampaign.model.vm.CampaignVM;
 import com.basarbk.adcampaign.service.CampaignService;
 
 @RestController
@@ -22,8 +23,8 @@ public class CampaignController {
 	}
 	
 	@GetMapping("/campaigns")
-	Page<Campaign> getAllCampaigns(Pageable page){
-		return campaignService.findAll(page);
+	Page<CampaignVM> getAllCampaigns(Pageable page){
+		return campaignService.findAll(page).map(CampaignVM::new);
 	}
 	
 	@GetMapping("/campaigns/{id:[0-9]+}")

@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.basarbk.adcampaign.exception.ApiError;
 import com.basarbk.adcampaign.model.Campaign;
+import com.basarbk.adcampaign.model.vm.CampaignVM;
 import com.basarbk.adcampaign.repository.CampaignRepository;
 import com.basarbk.adcampaign.util.EntityUtil;
 import com.basarbk.adcampaign.util.PageImpl;
@@ -42,8 +43,8 @@ public class CampaignControllerTest {
 	
 	@Test
 	public void getAllCampaigns_whenDBEmpty_returnsEmptyPage(){
-		ResponseEntity<PageImpl<Campaign>> result = testRestTemplate
-				.exchange(CAMPAIGN_PATH, HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<Campaign>>() {});
+		ResponseEntity<PageImpl<CampaignVM>> result = testRestTemplate
+				.exchange(CAMPAIGN_PATH, HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<CampaignVM>>() {});
 
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().getTotalElements()).isEqualTo(0);
@@ -55,8 +56,8 @@ public class CampaignControllerTest {
 		campaignRepository.save(EntityUtil.createCampaign(10, "Campaign 2"));
 		campaignRepository.save(EntityUtil.createCampaign(15, "Campaign 3"));
 		
-		ResponseEntity<PageImpl<Campaign>> result = testRestTemplate
-				.exchange(CAMPAIGN_PATH, HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<Campaign>>() {});
+		ResponseEntity<PageImpl<CampaignVM>> result = testRestTemplate
+				.exchange(CAMPAIGN_PATH, HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<CampaignVM>>() {});
 
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().getTotalElements()).isEqualTo(3);
@@ -69,8 +70,8 @@ public class CampaignControllerTest {
 		campaignRepository.save(EntityUtil.createCampaign(15, "Campaign 3"));
 		campaignRepository.save(EntityUtil.createCampaign(20, "Campaign 4"));
 		
-		ResponseEntity<PageImpl<Campaign>> result = testRestTemplate
-				.exchange(CAMPAIGN_PATH + "?page=0&size=2", HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<Campaign>>() {});
+		ResponseEntity<PageImpl<CampaignVM>> result = testRestTemplate
+				.exchange(CAMPAIGN_PATH + "?page=0&size=2", HttpMethod.GET, null, new ParameterizedTypeReference<PageImpl<CampaignVM>>() {});
 
 		assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(result.getBody().getTotalElements()).isEqualTo(4);
