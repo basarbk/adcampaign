@@ -54,7 +54,7 @@ Execute following command under `/backend` folder build project
 ```
 mvn package -Pbundle
 ```
-This will be building the client code first. Client output will be copied into backend projects `/backend/src/main/resources/templates` folder. Spring is accessing this folder by default when root url is requested and it returns `index.html` copied to this folder.
+This will be building the client code first. Client output will be copied into backend projects `/backend/src/main/resources/static` folder. Spring is accessing this folder by default when root url is requested and it returns `index.html` copied to this folder.
 Final jar file will be located under `/backend/target`.
 
 ## Running jar file
